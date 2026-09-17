@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Kefydelicias — Salud que sabe bien. Productos deliciosos elaborados con kéfir e ingredientes seleccionados.">
+<title>Kefydelicias | Salud que sabe bien</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Pacifico&display=swap" rel="stylesheet">
+<style>
+:root{
+  --pink:#f21b72;--pink2:#ff6fa8;--green:#246b45;--cream:#fff8f4;
+  --ink:#171217;--muted:#686168;--white:#fff;--line:#f0dce5;
+  --shadow:0 16px 45px rgba(41,15,29,.10);--radius:24px;
+}
+*{box-sizing:border-box;scroll-behavior:smooth}
+body{margin:0;font-family:"DM Sans",system-ui,sans-serif;color:var(--ink);background:#fff}
+a{text-decoration:none;color:inherit}
+button,input,select{font:inherit}
+img{max-width:100%;display:block}
+.container{width:min(1160px,92%);margin:auto}
+header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.94);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.nav{height:76px;display:flex;align-items:center;gap:20px}
+.nav-logo{height:58px;width:100px;object-fit:contain}
+.nav-links{display:flex;gap:25px;margin-left:auto;align-items:center;font-weight:700;font-size:.95rem}
+.nav-links a:hover{color:var(--pink)}
+.cart-btn{border:0;background:var(--pink);color:white;padding:11px 16px;border-radius:999px;font-weight:800;cursor:pointer;box-shadow:0 8px 20px rgba(242,27,114,.25)}
+.cart-count{background:#fff;color:var(--pink);border-radius:50%;padding:2px 7px;margin-left:5px}
+.menu-toggle{display:none;border:0;background:transparent;font-size:28px;cursor:pointer}
+.hero{background:linear-gradient(135deg,#fff 0%,#fff4f8 50%,#f4fff8 100%);padding:70px 0 65px;overflow:hidden}
+.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:45px;align-items:center}
+.badge{display:inline-flex;gap:8px;align-items:center;background:#ffe2ee;color:#a70f4b;border-radius:999px;padding:8px 13px;font-weight:800;font-size:.85rem}
+.hero h1{font-size:clamp(2.8rem,6vw,5.5rem);line-height:.95;margin:20px 0 12px}
+.script{font-family:Pacifico,cursive;color:var(--pink);font-weight:400}
+.hero h2{font-size:clamp(1.4rem,3vw,2.2rem);margin:0 0 15px;color:var(--green)}
+.hero p{font-size:1.08rem;line-height:1.7;color:var(--muted);max-width:620px}
+.actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:26px}
+.btn{display:inline-flex;align-items:center;justify-content:center;border:0;border-radius:14px;padding:14px 20px;font-weight:800;cursor:pointer;transition:.2s}
+.btn:hover{transform:translateY(-2px)}
+.btn-primary{background:var(--pink);color:#fff;box-shadow:0 10px 25px rgba(242,27,114,.24)}
+.btn-secondary{background:#fff;border:1px solid var(--line);color:var(--ink)}
+.hero-logo{background:#000;border-radius:32px;padding:15px;box-shadow:var(--shadow);transform:rotate(1deg)}
+.hero-logo img{width:100%;border-radius:22px}
+.section{padding:75px 0}
+.section.alt{background:var(--cream)}
+.section-head{text-align:center;max-width:760px;margin:0 auto 35px}
+.section-head h2{font-size:clamp(2rem,4vw,3.1rem);margin:0 0 10px}
+.section-head p{color:var(--muted);line-height:1.7;margin:0}
+.products-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;box-shadow:0 8px 28px rgba(41,15,29,.06);display:flex;flex-direction:column}
+.card-media{aspect-ratio:1/1;background:#f7f3f4;overflow:hidden}
+.card-media img{width:100%;height:100%;object-fit:cover;transition:.4s}
+.card:hover .card-media img{transform:scale(1.035)}
+.card-body{padding:20px}
+.card h3{margin:0 0 7px;font-size:1.35rem}
+.card p{margin:0 0 14px;color:var(--muted);line-height:1.55;font-size:.94rem}
+.tag{display:inline-block;background:#edf7f0;color:var(--green);padding:5px 9px;border-radius:999px;font-size:.78rem;font-weight:800;margin-bottom:12px}
+.option-row{display:grid;gap:8px;margin:12px 0}
+.option-row label{font-size:.8rem;font-weight:800;color:#554c53}
+select{width:100%;padding:11px 12px;border:1px solid #e5d7de;border-radius:12px;background:#fff;outline:none}
+.qty{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:12px 0}
+.qty-control{display:flex;align-items:center;border:1px solid #e5d7de;border-radius:12px;overflow:hidden}
+.qty-control button{width:38px;height:38px;border:0;background:#fff;cursor:pointer;font-size:20px}
+.qty-control span{min-width:35px;text-align:center;font-weight:800}
+.price{font-size:1.15rem;font-weight:900;color:var(--pink)}
+.add{width:100%;margin-top:4px}
+.features{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.feature{padding:24px;background:#fff;border:1px solid var(--line);border-radius:20px;text-align:center}
+.feature .icon{font-size:30px}.feature h3{margin:10px 0 6px}.feature p{margin:0;color:var(--muted);font-size:.9rem;line-height:1.5}
+.about{display:grid;grid-template-columns:.8fr 1.2fr;gap:40px;align-items:center}
+.about-logo{background:#000;border-radius:28px;padding:15px}
+.about-copy h2{font-size:2.4rem;margin:0 0 14px}.about-copy p{line-height:1.8;color:var(--muted)}
+.socials{display:flex;justify-content:center;gap:14px;flex-wrap:wrap;margin-top:22px}
+.social{padding:14px 22px;border-radius:999px;background:#fff;border:1px solid var(--line);font-weight:800}
+.social:hover{border-color:var(--pink);color:var(--pink)}
+.delivery{background:linear-gradient(135deg,#1c161b,#30212a);color:#fff;border-radius:32px;padding:45px}
+.delivery p{color:#eadfe5;line-height:1.7;max-width:720px}
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:25px}
+.contact-card{border:1px solid var(--line);border-radius:24px;padding:28px;background:#fff}
+.contact-card h3{margin-top:0}.contact-card p{color:var(--muted);line-height:1.7}
+footer{background:#110e11;color:#fff;padding:35px 0}
+.footer-row{display:flex;justify-content:space-between;gap:20px;align-items:center;flex-wrap:wrap}
+.footer-row small{color:#bcb2b9}
+.cart-drawer{position:fixed;inset:0;z-index:100;display:none}
+.cart-drawer.open{display:block}
+.overlay{position:absolute;inset:0;background:rgba(0,0,0,.48)}
+.cart-panel{position:absolute;right:0;top:0;height:100%;width:min(480px,94vw);background:#fff;display:flex;flex-direction:column;box-shadow:-15px 0 40px rgba(0,0,0,.18)}
+.cart-head{padding:20px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center}
+.cart-head h2{margin:0}.close{border:0;background:#f7eef2;border-radius:50%;width:38px;height:38px;cursor:pointer;font-size:20px}
+.cart-items{padding:16px 20px;overflow:auto;flex:1}
+.cart-item{border-bottom:1px solid var(--line);padding:14px 0;display:grid;grid-template-columns:1fr auto;gap:10px}
+.cart-item strong{display:block}.cart-meta{font-size:.86rem;color:var(--muted);margin-top:5px;line-height:1.5}
+.cart-actions{display:flex;align-items:center;gap:6px;margin-top:9px}
+.mini-btn{border:1px solid #eadde3;background:#fff;border-radius:9px;width:30px;height:30px;cursor:pointer}
+.remove{border:0;background:transparent;color:#b21655;cursor:pointer;margin-left:auto}
+.cart-foot{padding:18px 20px;border-top:1px solid var(--line);background:#fff}
+.total{display:flex;justify-content:space-between;font-size:1.2rem;font-weight:900;margin-bottom:13px}
+.empty{text-align:center;color:var(--muted);padding:45px 10px}
+.modal{position:fixed;inset:0;z-index:120;background:rgba(0,0,0,.5);display:none;align-items:center;justify-content:center;padding:18px}
+.modal.open{display:flex}
+.modal-box{background:#fff;border-radius:26px;width:min(620px,100%);max-height:92vh;overflow:auto;padding:26px}
+.modal-head{display:flex;justify-content:space-between;align-items:center}.modal-head h2{margin:0}
+.form-grid{display:grid;gap:13px;margin-top:18px}
+.form-grid label{font-size:.85rem;font-weight:800}.form-grid input,.form-grid textarea{width:100%;padding:12px;border:1px solid #dfd1d8;border-radius:12px;margin-top:6px;outline:none}
+.form-grid textarea{min-height:80px;resize:vertical}
+.payment{display:grid;gap:8px;margin-top:6px}.payment label{font-weight:600;background:#faf6f8;border:1px solid #eadde3;border-radius:12px;padding:11px;cursor:pointer}
+.order-preview{background:#faf6f8;border-radius:15px;padding:14px;margin-top:18px;font-size:.9rem;line-height:1.6}
+.notice{font-size:.82rem;color:var(--muted);line-height:1.5}
+.success{text-align:center;padding:30px 10px}.success .check{font-size:55px}
+@media(max-width:900px){.hero-grid,.about{grid-template-columns:1fr}.products-grid{grid-template-columns:repeat(2,1fr)}.features{grid-template-columns:repeat(2,1fr)}.contact-grid{grid-template-columns:1fr}.nav-links{display:none}.menu-toggle{display:block;margin-left:auto}.nav.open .nav-links{display:flex;position:absolute;top:76px;left:0;right:0;background:#fff;padding:18px 4%;flex-direction:column;align-items:flex-start;border-bottom:1px solid var(--line)}}
+@media(max-width:600px){.hero{padding:45px 0}.section{padding:55px 0}.products-grid{grid-template-columns:1fr}.features{grid-template-columns:1fr 1fr}.hero-logo{order:-1}.nav-logo{height:50px;width:85px}.features .feature{padding:18px 12px}.delivery{padding:28px 22px}.actions .btn{width:100%}}
+</style>
+</head>
+<body>
+
+<header id="top">
+  <div class="container nav" id="nav">
+    <a href="#inicio" aria-label="Kefydelicias inicio"><img class="nav-logo" src="assets/logo.png" alt="Logo Kefydelicias"></a>
+    <button class="menu-toggle" onclick="toggleMenu()" aria-label="Abrir menú">☰</button>
+    <nav class="nav-links">
+      <a href="#inicio" onclick="closeMenu()">Inicio</a>
+      <a href="#productos" onclick="closeMenu()">Productos</a>
+      <a href="#nosotros" onclick="closeMenu()">Nosotros</a>
+      <a href="#contacto" onclick="closeMenu()">Contacto</a>
+      <button class="cart-btn" onclick="openCart()">🛒 Carrito <span class="cart-count" id="cartCount">0</span></button>
+    </nav>
+  </div>
+</header>
+
+<main>
+<section class="hero" id="inicio">
+  <div class="container hero-grid">
+    <div>
+      <span class="badge">🌿 Productos con kéfir · 🚚 Delivery</span>
+      <h1><span class="script">Kefydelicias</span></h1>
+      <h2>Salud que sabe bien</h2>
+      <p>Productos deliciosos elaborados con kéfir e ingredientes seleccionados, pensados para que disfrutes tus antojos de una manera más natural y equilibrada.</p>
+      <div class="actions">
+        <a class="btn btn-primary" href="#productos">🛍️ Ver productos</a>
+        <button class="btn btn-secondary" onclick="openCart()">🛒 Ver carrito</button>
+      </div>
+    </div>
+    <div class="hero-logo"><img src="assets/logo.png" alt="Kefydelicias"></div>
+  </div>
+</section>
+
+<section class="section" id="productos">
+  <div class="container">
+    <div class="section-head">
+      <h2>Nuestros productos</h2>
+      <p>Elige tu producto, sabor, tamaño y cantidad. Todo lo que selecciones quedará guardado en tu carrito.</p>
+    </div>
+    <div class="products-grid" id="productsGrid"></div>
+  </div>
+</section>
+
+<section class="section alt">
+  <div class="container">
+    <div class="section-head">
+      <h2>¿Por qué Kefydelicias?</h2>
+      <p>Queremos que cuidar tus hábitos no signifique dejar de disfrutar lo que te fascina.</p>
+    </div>
+    <div class="features">
+      <div class="feature"><div class="icon">🌿</div><h3>Natural</h3><p>Ingredientes seleccionados y sabores que se disfrutan.</p></div>
+      <div class="feature"><div class="icon">🥛</div><h3>Con kéfir</h3><p>Una variedad de preparaciones a base de kéfir.</p></div>
+      <div class="feature"><div class="icon">❤️</div><h3>Hecho con cariño</h3><p>Cuidamos cada preparación para compartirla contigo.</p></div>
+      <div class="feature"><div class="icon">😋</div><h3>Delicioso</h3><p>Opciones para disfrutar tus momentos favoritos.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="nosotros">
+  <div class="container about">
+    <div class="about-logo"><img src="assets/logo.png" alt="Kefydelicias"></div>
+    <div class="about-copy">
+      <span class="tag">Nuestra esencia</span>
+      <h2>Salud que sabe bien 💗</h2>
+      <p>Queremos ayudarte a cuidar tu salud sin renunciar a lo que te fascina. En Kefydelicias creamos opciones deliciosas para que disfrutes cada antojo de una manera más natural y equilibrada.</p>
+      <p><strong>Disfruta lo natural, disfruta Kefydelicias.</strong></p>
+    </div>
+  </div>
+</section>
+
+<section class="section alt">
+  <div class="container">
+    <div class="delivery">
+      <h2>🚚 Delivery</h2>
+      <p>Realizamos envíos. El costo y la disponibilidad del delivery se coordinan por WhatsApp según tu dirección.</p>
+      <a class="btn btn-primary" href="https://wa.me/51981215594" target="_blank" rel="noopener">📲 Consultar por WhatsApp</a>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="contacto">
+  <div class="container">
+    <div class="section-head">
+      <h2>Síguenos en redes</h2>
+      <p>Descubre nuestras novedades, productos y promociones.</p>
+      <div class="socials">
+        <a class="social" href="https://www.instagram.com/kefidelicias" target="_blank" rel="noopener">📸 Instagram · @kefidelicias</a>
+        <a class="social" href="https://www.tiktok.com/@kefi_delicias1" target="_blank" rel="noopener">🎵 TikTok · @kefi_delicias1</a>
+      </div>
+    </div>
+    <div class="contact-grid">
+      <div class="contact-card">
+        <h3>📲 Pedidos por WhatsApp</h3>
+        <p>Selecciona tus productos y completa el pedido. La web preparará automáticamente el mensaje con todos los detalles.</p>
+        <a class="btn btn-primary" href="https://wa.me/51981215594" target="_blank" rel="noopener">Abrir WhatsApp</a>
+      </div>
+      <div class="contact-card">
+        <h3>💳 Métodos de pago</h3>
+        <p>Yape · Plin · Pago contra entrega con adelanto digital.</p>
+        <p class="notice">El delivery y cualquier detalle final del pedido se coordinan directamente por WhatsApp.</p>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="container footer-row">
+    <div><strong>Kefydelicias</strong><br><small>Salud que sabe bien.</small></div>
+    <small>© 2026 Kefydelicias · Delivery por coordinación</small>
+  </div>
+</footer>
+
+<div class="cart-drawer" id="cartDrawer">
+  <div class="overlay" onclick="closeCart()"></div>
+  <aside class="cart-panel">
+    <div class="cart-head"><h2>🛒 Tu carrito</h2><button class="close" onclick="closeCart()">×</button></div>
+    <div class="cart-items" id="cartItems"></div>
+    <div class="cart-foot">
+      <div class="total"><span>Total</span><span id="cartTotal">S/ 0.00</span></div>
+      <button class="btn btn-primary" style="width:100%" onclick="openCheckout()">COMPLETAR EL PEDIDO</button>
+      <button class="btn btn-secondary" style="width:100%;margin-top:8px" onclick="closeCart()">SEGUIR COMPRANDO</button>
+    </div>
+  </aside>
+</div>
+
+<div class="modal" id="checkoutModal">
+  <div class="modal-box">
+    <div class="modal-head"><h2>🧾 Confirmar pedido</h2><button class="close" onclick="closeCheckout()">×</button></div>
+    <p class="notice">Completa tus datos para preparar el mensaje de WhatsApp.</p>
+    <div id="checkoutContent">
+      <form class="form-grid" onsubmit="sendOrder(event)">
+        <label>👤 Nombre completo
+          <input id="name" required placeholder="Tu nombre completo">
+        </label>
+        <label>📱 Número de teléfono
+          <input id="phone" required inputmode="tel" placeholder="Tu número">
+        </label>
+        <label>📍 Dirección de entrega
+          <input id="address" required placeholder="Dirección donde deseas recibir tu pedido">
+        </label>
+        <label>📝 Referencia de la dirección
+          <textarea id="reference" placeholder="Ej.: frente a..., puerta de color..., referencia opcional"></textarea>
+        </label>
+        <label>💳 Método de pago</label>
+        <div class="payment">
+          <label><input type="radio" name="payment" value="Yape" required> 🟣 Yape</label>
+          <label><input type="radio" name="payment" value="Plin"> 🔵 Plin</label>
+          <label><input type="radio" name="payment" value="Pago contra entrega con adelanto digital"> 🚚 Pago contra entrega con adelanto digital</label>
+        </div>
+        <div class="order-preview" id="orderPreview"></div>
+        <button class="btn btn-primary" type="submit">📲 ENVIAR PEDIDO POR WHATSAPP</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script>
+const products = [
+  {
+    id:"yogukefi", name:"Yogukefi", img:"assets/yogukefi.png",
+    desc:"El sabor natural que te acompaña cada día. Yogur de kéfir con frutas, disponible en cinco sabores.",
+    flavors:["Fresa","Mango","Durazno","Manzana","Frutos rojos"],
+    prices:{Chico:3, Mediano:7, Grande:12}, tag:"5 sabores · 900 g"
+  },
+  {
+    id:"gomitas", name:"Gomitas de Kéfir", img:"assets/gomitas.png",
+    desc:"Pequeños bocados de sabor y diversión, con sabores frutales para disfrutar y compartir.",
+    flavors:["Sabores frutales"], prices:{Chico:2.5, Mediano:4.5, Grande:7.5}, tag:"Sabores frutales · 900 g"
+  },
+  {
+    id:"bebida", name:"Bebida de Kéfir de agua", img:"assets/bebida-kefir.png",
+    desc:"Refrescante y frutal, elaborada a base de kéfir de agua y frutas naturales.",
+    flavors:["Ciruela & arándanos"], prices:{Chico:3, Mediano:9, Grande:15}, tag:"355 mL · sabor ciruela & arándanos"
+  },
+  {
+    id:"queso", name:"Queso crema de Kéfir", img:"assets/queso-crema.png",
+    desc:"Suave y cremoso, ideal para acompañar panes, galletas, ensaladas o disfrutarlo como prefieras.",
+    flavors:["Natural"], prices:{Chico:3, Mediano:8, Grande:15}, tag:"Natural · 250 g"
+  },
+  {
+    id:"carlota", name:"Carlota de Maracuyá con Kéfir Natural", img:"assets/carlota.png",
+    desc:"Un postre dulce y fresco que combina la cremosidad del kéfir natural con el toque tropical del maracuyá.",
+    flavors:["Maracuyá"], prices:{Chico:3.5, Mediano:5, Grande:8.5}, tag:"Maracuyá · kéfir natural"
+  },
+  {
+    id:"chocotejas", name:"Chocotejas de Sangresita", img:"assets/chocotejas.png",
+    desc:"Tradición y dulzura en cada bocado: sangresita y manjar dulce cubiertos con chocolate.",
+    flavors:["Sangresita"], prices:{Chico:2, Mediano:5, Grande:10}, tag:"Sangresita · chocolate"
+  },
+  {
+    id:"muffins", name:"Muffins de Sangresita", img:"assets/muffins.png",
+    desc:"Muffins suaves elaborados con sangresita y frutas, ideales para una merienda o un gustito.",
+    flavors:["Sangresita"], prices:{Chico:3, Mediano:6, Grande:9}, tag:"Sangresita · frutas"
+  }
+];
+
+let cart = JSON.parse(localStorage.getItem("kefyCart") || "[]");
+let cardQty = {};
+
+function money(n){return `S/ ${n.toFixed(2)}`;}
+function renderProducts(){
+  const grid=document.getElementById("productsGrid");
+  grid.innerHTML=products.map(p=>{
+    cardQty[p.id]=cardQty[p.id]||1;
+    return `<article class="card">
+      <div class="card-media"><img src="${p.img}" alt="${p.name}"></div>
+      <div class="card-body">
+        <span class="tag">${p.tag}</span>
+        <h3>${p.name}</h3>
+        <p>${p.desc}</p>
+        <div class="option-row">
+          <label for="flavor-${p.id}">Sabor</label>
+          <select id="flavor-${p.id}">${p.flavors.map(f=>`<option>${f}</option>`).join("")}</select>
+        </div>
+        <div class="option-row">
+          <label for="size-${p.id}">Tamaño</label>
+          <select id="size-${p.id}" onchange="updateCardPrice('${p.id}')">
+            ${Object.keys(p.prices).map(s=>`<option value="${s}">${s} — ${money(p.prices[s])}</option>`).join("")}
+          </select>
+        </div>
+        <div class="qty">
+          <span class="price" id="price-${p.id}">${money(p.prices.Chico)}</span>
+          <div class="qty-control">
+            <button onclick="changeCardQty('${p.id}',-1)">−</button>
+            <span id="qty-${p.id}">1</span>
+            <button onclick="changeCardQty('${p.id}',1)">+</button>
+          </div>
+        </div>
+        <button class="btn btn-primary add" onclick="addToCart('${p.id}')">🛒 AGREGAR AL CARRITO</button>
+      </div>
+    </article>`;
+  }).join("");
+}
+function changeCardQty(id,delta){
+  cardQty[id]=Math.max(1,(cardQty[id]||1)+delta);
+  document.getElementById(`qty-${id}`).textContent=cardQty[id];
+}
+function updateCardPrice(id){
+  const p=products.find(x=>x.id===id), size=document.getElementById(`size-${id}`).value;
+  document.getElementById(`price-${id}`).textContent=money(p.prices[size]);
+}
+function addToCart(id){
+  const p=products.find(x=>x.id===id);
+  const flavor=document.getElementById(`flavor-${id}`).value;
+  const size=document.getElementById(`size-${id}`).value;
+  const qty=cardQty[id]||1;
+  const key=`${id}|${flavor}|${size}`;
+  const existing=cart.find(x=>x.key===key);
+  if(existing) existing.qty+=qty;
+  else cart.push({key,id,name:p.name,flavor,size,qty,unitPrice:p.prices[size]});
+  cardQty[id]=1; document.getElementById(`qty-${id}`).textContent="1";
+  saveCart(); openCart();
+}
+function saveCart(){
+  localStorage.setItem("kefyCart",JSON.stringify(cart)); renderCart(); updateCount();
+}
+function updateCount(){document.getElementById("cartCount").textContent=cart.reduce((a,x)=>a+x.qty,0);}
+function renderCart(){
+  const box=document.getElementById("cartItems");
+  if(!cart.length){box.innerHTML=`<div class="empty">Tu carrito está vacío.<br><br>Elige tus productos favoritos 💗</div>`;document.getElementById("cartTotal").textContent="S/ 0.00";return;}
+  box.innerHTML=cart.map((x,i)=>`<div class="cart-item">
+    <div><strong>${x.name}</strong><div class="cart-meta">Sabor: ${x.flavor}<br>Tamaño: ${x.size}<br>${money(x.unitPrice)} c/u</div>
+      <div class="cart-actions"><button class="mini-btn" onclick="cartQty(${i},-1)">−</button><strong>${x.qty}</strong><button class="mini-btn" onclick="cartQty(${i},1)">+</button></div>
+    </div>
+    <div style="text-align:right"><strong>${money(x.unitPrice*x.qty)}</strong><button class="remove" onclick="removeItem(${i})">Eliminar</button></div>
+  </div>`).join("");
+  const total=cart.reduce((a,x)=>a+x.unitPrice*x.qty,0);
+  document.getElementById("cartTotal").textContent=money(total);
+}
+function cartQty(i,d){cart[i].qty=Math.max(1,cart[i].qty+d);saveCart();}
+function removeItem(i){cart.splice(i,1);saveCart();}
+function openCart(){document.getElementById("cartDrawer").classList.add("open");renderCart();}
+function closeCart(){document.getElementById("cartDrawer").classList.remove("open");}
+function openCheckout(){
+  if(!cart.length){alert("Agrega al menos un producto al carrito.");return;}
+  closeCart(); document.getElementById("checkoutModal").classList.add("open"); renderPreview();
+}
+function closeCheckout(){document.getElementById("checkoutModal").classList.remove("open");}
+function renderPreview(){
+  const total=cart.reduce((a,x)=>a+x.unitPrice*x.qty,0);
+  document.getElementById("orderPreview").innerHTML="<strong>Resumen del pedido</strong><br>"+cart.map(x=>`• ${x.name} — ${x.flavor} — ${x.size} × ${x.qty} = ${money(x.unitPrice*x.qty)}`).join("<br>")+`<br><br><strong>Total: ${money(total)}</strong>`;
+}
+function sendOrder(e){
+  e.preventDefault();
+  if(!cart.length)return;
+  const name=document.getElementById("name").value.trim();
+  const phone=document.getElementById("phone").value.trim();
+  const address=document.getElementById("address").value.trim();
+  const reference=document.getElementById("reference").value.trim() || "No indicada";
+  const payment=document.querySelector('input[name="payment"]:checked')?.value;
+  const total=cart.reduce((a,x)=>a+x.unitPrice*x.qty,0);
+  let msg=`🌸 *NUEVO PEDIDO — KEFYDELICIAS*%0A%0A`;
+  msg+=`👤 *Cliente:* ${encodeURIComponent(name)}%0A`;
+  msg+=`📱 *Teléfono:* ${encodeURIComponent(phone)}%0A`;
+  msg+=`📍 *Dirección:* ${encodeURIComponent(address)}%0A`;
+  msg+=`📝 *Referencia:* ${encodeURIComponent(reference)}%0A%0A`;
+  msg+=`🛍️ *PEDIDO*%0A`;
+  cart.forEach(x=>{msg+=`• ${encodeURIComponent(x.name)} — ${encodeURIComponent(x.flavor)} — ${encodeURIComponent(x.size)} × ${x.qty} — ${encodeURIComponent(money(x.unitPrice*x.qty))}%0A`;});
+  msg+=`%0A💳 *Método de pago:* ${encodeURIComponent(payment)}%0A`;
+  msg+=`💰 *TOTAL: ${encodeURIComponent(money(total))}*%0A`;
+  msg+=`🚚 Delivery: *Por coordinar según la dirección*`;
+  const url=`https://wa.me/51981215594?text=${msg}`;
+  document.getElementById("checkoutContent").innerHTML=`<div class="success"><div class="check">✅</div><h2>¡Pedido preparado!</h2><p>Se abrirá WhatsApp con todos los detalles de tu pedido.</p><a class="btn btn-primary" href="${url}" target="_blank" rel="noopener" onclick="finishOrder()">📲 ABRIR WHATSAPP</a></div>`;
+}
+function finishOrder(){cart=[];saveCart();}
+function toggleMenu(){document.getElementById("nav").classList.toggle("open")}
+function closeMenu(){document.getElementById("nav").classList.remove("open")}
+renderProducts();renderCart();updateCount();
+</script>
+</body>
+</html>
